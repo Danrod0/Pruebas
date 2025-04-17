@@ -341,7 +341,7 @@ def mostrar_chat(nombre, conversacion, paso_key):
         if opciones:
             st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
             for opcion in opciones:
-                if st.button(opcion, key=f"{nombre}_{paso}"):
+                if st.button(opcion, key=f"{nombre}_{paso}_{opcion}"):
                     st.session_state[paso_key] += 1
                     st.experimental_rerun()
             st.markdown('</div>', unsafe_allow_html=True)
