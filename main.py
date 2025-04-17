@@ -247,20 +247,20 @@ mmpi_conversacion = [
     {"pregunta": "Mi nombre completo es: Inventario Multifásico de Personalidad de Minnesota 2 – Forma Reestructurada.", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
     {"pregunta": "Mido rasgos clínicos, personalidad, psicopatología y estilo de respuesta.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
     {"pregunta": "Se usa en:\n• Evaluaciones clínicas y forenses\n• Diagnóstico de trastornos psicológicos\n• Selección y orientación laboral", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
-    {"pregunta": "Validez (9):\n• VRIN-r\n• TRIN-r\n• F-r\n• Fp-r\n• Fs\n• FBS-r\n• L-r\n• K-r\n• RBS", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
-    {"pregunta": "Problemas emocionales / internos (9):\n• EID\n• RCd\n• RC1\n• RC2\n• RC4\n• RC6\n• RC7\n• RC8\n• RC9", "respuestas": ["¿Y los problemas conductuales?"], "respuesta_usuario": "¿Y los problemas conductuales?"},
-    {"pregunta": "Problemas conductuales / externalizantes:\n• AGG-r\n• ACT-r\n• SUB-r\n• DISC-r", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
-    {"pregunta": "Escalas interpersonales y de personalidad:\n• SHY-r\n• DSF-r\n• NFC-r\n• AXY-r\n• JCP-r\n• AGGR-r\n• MEC-r\n• SAV-r\n• TRT-r", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Escalas de Validez (9):\n• Inconsistencia variable (VRIN-r)\n• Inconsistencia verdadera (TRIN-r)\n• Infrecuencia (F-r)\n• Infrecuencia psicopatológica (Fp-r)\n• Infrecuencia somática (Fs)\n• Síntomas poco comunes (FBS-r)\n• Mentira (L-r)\n• Autopresentación positiva (K-r)\n• Síntomas cognitivos inusuales (RBS)", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
+    {"pregunta": "Problemas emocionales / internos (9):\n• Malestar emocional general (EID)\n• Desmoralización (RCd)\n• Quejas somáticas (RC1)\n• Disfunción emocional (RC2)\n• Problemas antisociales (RC4)\n• Desconfianza (RC6)\n• Disfunción cognitiva (RC7)\n• Experiencias inusuales (RC8)\n• Activación hipomaníaca (RC9)", "respuestas": ["¿Y los problemas conductuales?"], "respuesta_usuario": "¿Y los problemas conductuales?"},
+    {"pregunta": "Problemas conductuales / externalizantes:\n• Agresión (AGG-r)\n• Activación (ACT-r)\n• Sustancias (SUB-r)\n• Conducta antisocial (DISC-r)", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
+    {"pregunta": "Escalas interpersonales y de personalidad:\n• Timidez (SHY-r)\n• Disfunción familiar (DSF-r)\n• Necesidad de control (NFC-r)\n• Ansiedad social (AXY-r)\n• Control inter/intrapersonal (JCP-r)\n• Agresividad (AGGR-r)\n• Cinismo (MEC-r)\n• Sociabilidad activa (SAV-r)\n• Interés en el tratamiento (TRT-r)", "respuestas": [], "respuesta_usuario": ""}
 ]
 
 pai_conversacion = [
-    {"pregunta": "Mi nombre completo es: Personality Assessment Inventory (PAI).", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
+    {"pregunta": "Mi nombre completo es: Inventario de Evaluación de la Personalidad (Personality Assessment Inventory).", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
     {"pregunta": "Mido trastornos de personalidad, psicopatología y estilo de afrontamiento.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
     {"pregunta": "Se usa en:\n• Diagnóstico clínico\n• Planificación de tratamiento\n• Evaluaciones judiciales, penitenciarias y laborales", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
-    {"pregunta": "Validez (4):\n• ICN\n• INF\n• NIM\n• PIM", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
-    {"pregunta": "Clínicas (11):\n• SOM\n• ANX\n• ARD\n• DEP\n• MAN\n• PAR\n• SCZ\n• BOR\n• ANT\n• ALC\n• DRG", "respuestas": ["¿Y las de tratamiento?"], "respuesta_usuario": "¿Y las de tratamiento?"},
-    {"pregunta": "Escalas de tratamiento (5):\n• AGG\n• SUI\n• STR\n• RXR\n• NON", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
-    {"pregunta": "Interpersonales (2):\n• DOM\n• WRM", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Escalas de Validez (4):\n• Inconsistencia (ICN)\n• Infrecuencia (INF)\n• Impresión negativa (NIM)\n• Impresión positiva (PIM)", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
+    {"pregunta": "Escalas Clínicas (11):\n• Somatización (SOM)\n• Ansiedad (ANX)\n• Trastorno relacionado con ansiedad (ARD)\n• Depresión (DEP)\n• Manía (MAN)\n• Paranoia (PAR)\n• Esquizofrenia (SCZ)\n• Trastorno límite (BOR)\n• Trastorno antisocial (ANT)\n• Abuso de alcohol (ALC)\n• Abuso de drogas (DRG)", "respuestas": ["¿Y las de tratamiento?"], "respuesta_usuario": "¿Y las de tratamiento?"},
+    {"pregunta": "Escalas de tratamiento (5):\n• Agresividad (AGG)\n• Suicidio (SUI)\n• Estrés (STR)\n• Rechazo al tratamiento (RXR)\n• Problemas no asociados al tratamiento (NON)", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
+    {"pregunta": "Escalas interpersonales (2):\n• Dominancia (DOM)\n• Calidez (WRM)", "respuestas": [], "respuesta_usuario": ""}
 ]
 
 neo_conversacion = [
