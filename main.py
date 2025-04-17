@@ -148,9 +148,7 @@ st.markdown('''
 </style>
 ''', unsafe_allow_html=True)
 
-# El resto del código se irá integrando por partes (menú, pruebas, conversaciones)
-# Confirmamos esta base inicial antes de continuar
-main_complete_code[:500]
+
 
 # Estado
 if "pantalla" not in st.session_state:
