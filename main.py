@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 st.set_page_config(page_title="Simulador de Pruebas Psicológicas", layout="wide")
@@ -220,19 +221,20 @@ wais_conversacion = [
     {"pregunta": "Se aplica en sesiones individuales de 60 a 90 minutos. ¡Gracias por hablar conmigo!", "respuestas": [], "respuesta_usuario": ""}
 ]
 
-# Encabezado estilo WhatsApp
-st.markdown('<div class="header">', unsafe_allow_html=True)
-st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
-st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
-st.markdown('''
-<div class="chip-row">
+if st.session_state.pantalla == 'menu':
+    # Encabezado estilo WhatsApp
+    st.markdown('<div class="header">', unsafe_allow_html=True)
+    st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
+    st.markdown('''
+    <div class="chip-row">
     <div class="chip">All</div>
     <div class="chip">Unread 16</div>
     <div class="chip">Favorites</div>
     <div class="chip">Groups 9</div>
-</div>
-''', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+    </div>
+    ''', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Menú
 if st.session_state.pantalla == "menu":
