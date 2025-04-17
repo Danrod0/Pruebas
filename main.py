@@ -9,13 +9,42 @@ st.markdown('''
     font-family: 'Segoe UI', sans-serif;
     background-color: #d1d1d1;
 }
+.header {
+    background-color: #111;
+    color: white;
+    padding: 20px 30px 10px 30px;
+    border-radius: 0 0 15px 15px;
+    max-width: 600px;
+    margin: auto;
+}
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.search-bar {
+    background-color: #2c2c2c;
+    color: #ccc;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.chip-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.chip {
+    background-color: #1d3026;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 20px;
+    font-size: 14px;
+}
 .menu-container {
     max-width: 600px;
     margin: auto;
-    margin-top: 40px;
     background-color: #2f2f2f;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     overflow: hidden;
     color: white;
 }
@@ -45,6 +74,9 @@ st.markdown('''
 }
 .chat-info {
     line-height: 1.2;
+    background-color: #3e3e3e;
+    border-radius: 10px;
+    padding: 5px 10px;
 }
 .chat-info small {
     color: #ccc;
@@ -145,13 +177,13 @@ st.markdown('''
 </style>
 ''', unsafe_allow_html=True)
 
-# Estado inicial
+# Estado
 if "pantalla" not in st.session_state:
     st.session_state.pantalla = "menu"
 if "paso_wais" not in st.session_state:
     st.session_state.paso_wais = 0
 
-# Diccionario de pruebas
+# Pruebas
 pruebas = {
     "WAIS": {
         "avatar": "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
@@ -188,39 +220,29 @@ wais_conversacion = [
     {"pregunta": "Se aplica en sesiones individuales de 60 a 90 minutos. ¡Gracias por hablar conmigo!", "respuestas": [], "respuesta_usuario": ""}
 ]
 
-# Menú
-if st.session_state.pantalla == "menu":
-    st.markdown('''
-<div style="background-color: #111; padding: 20px 20px 10px 20px; color: white; max-width: 600px; margin: auto; border-radius: 0 0 12px 12px;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h1 style="margin: 0; font-size: 32px;">Chats</h1>
-        <div style="display: flex; gap: 10px;">
-            <div style="width: 35px; height: 35px; background-color: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <span style="font-size: 18px;">📷</span>
-            </div>
-            <div style="width: 35px; height: 35px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <span style="font-size: 24px; color: white;">+</span>
-            </div>
-        </div>
-    </div>
-    <div style="margin-top: 15px;">
-        <input type="text" placeholder="Ask Meta AI or Search" disabled style="width: 100%; padding: 10px; background-color: #2d2d2d; border: none; border-radius: 10px; color: #bbb;" />
-    </div>
-    <div style="margin-top: 15px; display: flex; gap: 10px;">
-        <div style="padding: 5px 15px; background-color: #134e4a; color: white; border-radius: 20px;">All</div>
-        <div style="padding: 5px 15px; background-color: #444; color: #ccc; border-radius: 20px;">Unread 16</div>
-        <div style="padding: 5px 15px; background-color: #444; color: #ccc; border-radius: 20px;">Favorites</div>
-        <div style="padding: 5px 15px; background-color: #444; color: #ccc; border-radius: 20px;">Groups 9</div>
-    </div>
+# Encabezado estilo WhatsApp
+st.markdown('<div class="header">', unsafe_allow_html=True)
+st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
+st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
+st.markdown('''
+<div class="chip-row">
+    <div class="chip">All</div>
+    <div class="chip">Unread 16</div>
+    <div class="chip">Favorites</div>
+    <div class="chip">Groups 9</div>
 </div>
 ''', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Menú
+if st.session_state.pantalla == "menu":
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
     for i, (nombre, data) in enumerate(pruebas.items()):
         cols = st.columns([0.15, 0.7, 0.15])
         with cols[0]:
             st.image(data["avatar"], width=45)
         with cols[1]:
-            st.markdown(f"<b>{nombre}</b><br><small>{data['mensaje']}</small>", unsafe_allow_html=True)
+            st.markdown(f'<div class="chat-info"><b>{nombre}</b><br><small>{data["mensaje"]}</small></div>', unsafe_allow_html=True)
             if st.button(f"Responder a {nombre}", key=nombre):
                 st.session_state.pantalla = nombre.lower()
                 st.experimental_rerun()
@@ -230,7 +252,7 @@ if st.session_state.pantalla == "menu":
             st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Chat WAIS
+# Chat de WAIS
 if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
     header_cols = st.columns([0.85, 0.15])
@@ -249,12 +271,14 @@ if st.session_state.pantalla == "wais":
             st.experimental_rerun()
 
     st.markdown('<div class="chat-body">', unsafe_allow_html=True)
+
     paso = st.session_state.paso_wais
     for i in range(paso + 1):
         mensaje = wais_conversacion[i]
         st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"]}</div>', unsafe_allow_html=True)
         if i < paso:
             st.markdown(f'<div class="bubble-user">{mensaje["respuesta_usuario"]}</div>', unsafe_allow_html=True)
+
     st.markdown('</div>', unsafe_allow_html=True)
 
     opciones = wais_conversacion[paso]["respuestas"] if paso < len(wais_conversacion) else []
