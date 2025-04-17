@@ -275,28 +275,40 @@ neo_conversacion = [
 ]
 
 
-
-    if paso < len(conversacion):
-        opciones = conversacion[paso]["respuestas"]
-        if opciones:
-            st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
-            for opcion in opciones:
-                if st.button(opcion, key=f"{nombre}_{paso}"):
-                    st.session_state[paso_key] += 1
-                    st.experimental_rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
-
-    st.markdown('''
-    <div class="chat-footer">
-        <span class="icon">&#128206;</span>
-        <span class="icon">&#128247;</span>
-        <input type="text" placeholder="Escribí un mensaje" disabled>
-        <span class="icon">&#127908;</span>
+# Mostrar encabezado estético solo en menú
+if st.session_state.pantalla == "menu":
+    st.markdown('<div class="header">', unsafe_allow_html=True)
+    st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="chip-row">
+        <div class="chip">All</div>
+        <div class="chip">Unread 16</div>
+        <div class="chip">Favorites</div>
+        <div class="chip">Groups 9</div>
     </div>
-    ''', unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
+# Menú de chats
+if st.session_state.pantalla == "menu":
+    st.markdown('<div class="menu-container">', unsafe_allow_html=True)
+    for i, (nombre, data) in enumerate(pruebas.items()):
+        cols = st.columns([0.15, 0.7, 0.15])
+        with cols[0]:
+            st.image(data["avatar"], width=45)
+        with cols[1]:
+            st.markdown(f'<div class="chat-info"><b>{nombre}</b><br><small>{data["mensaje"]}</small></div>', unsafe_allow_html=True)
+            if st.button(f"Responder a {nombre}", key=nombre):
+                st.session_state.pantalla = nombre.lower()
+                st.experimental_rerun()
+        with cols[2]:
+            st.markdown(f"<div style='text-align:right;font-size:12px;color:#ccc;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
+        if i < len(pruebas) - 1:
+            st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
+# Función para mostrar cada chat
 def mostrar_chat(nombre, conversacion, paso_key):
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
     header_cols = st.columns([0.85, 0.15])
@@ -335,9 +347,8 @@ def mostrar_chat(nombre, conversacion, paso_key):
                     st.session_state[estado_key] = True
             st.markdown('</div>', unsafe_allow_html=True)
 
-            # Verificar después del renderizado
-            if st.session_state.get(f"respuesta_{nombre}_{paso}"):
-                st.session_state[f"respuesta_{nombre}_{paso}"] = False
+            if st.session_state.get(estado_key):
+                st.session_state[estado_key] = False
                 st.session_state[paso_key] += 1
                 st.experimental_rerun()
 
@@ -351,41 +362,7 @@ def mostrar_chat(nombre, conversacion, paso_key):
     ''', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-
-# Menú
-
-    # Encabezado estilo WhatsApp
-    st.markdown('<div class="header">', unsafe_allow_html=True)
-    st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
-    st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="chip-row">
-        <div class="chip">All</div>
-        <div class="chip">Unread 16</div>
-        <div class="chip">Favorites</div>
-        <div class="chip">Groups 9</div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-if st.session_state.pantalla == "menu":
-    st.markdown('<div class="menu-container">', unsafe_allow_html=True)
-    for i, (nombre, data) in enumerate(pruebas.items()):
-        cols = st.columns([0.15, 0.7, 0.15])
-        with cols[0]:
-            st.image(data["avatar"], width=45)
-        with cols[1]:
-            st.markdown(f'<div class="chat-info"><b>{nombre}</b><br><small>{data["mensaje"]}</small></div>', unsafe_allow_html=True)
-            if st.button(f"Responder a {nombre}", key=nombre):
-                st.session_state.pantalla = nombre.lower()
-                st.experimental_rerun()
-        with cols[2]:
-            st.markdown(f"<div style='text-align:right;font-size:12px;color:#ccc;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
-        if i < len(pruebas) - 1:
-            st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# Mostrar chats
+# Mostrar los chats según el nombre
 if st.session_state.pantalla == "wais":
     mostrar_chat("WAIS", wais_conversacion, "paso_wais")
 elif st.session_state.pantalla == "neuropsi":
