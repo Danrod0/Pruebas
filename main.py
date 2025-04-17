@@ -81,17 +81,11 @@ st.markdown('''
 .chat-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
     background-color: #075E54;
     color: white;
     padding: 10px;
     border-radius: 10px 10px 0 0;
-}
-.chat-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 .chat-header img {
     width: 40px;
@@ -161,13 +155,6 @@ if "pantalla" not in st.session_state:
 if "paso_wais" not in st.session_state:
     st.session_state.paso_wais = 0
 
-# Volver al menú manualmente
-if "volver_al_menu" in st.session_state and st.session_state.volver_al_menu:
-    st.session_state.pantalla = "menu"
-    st.session_state.paso_wais = 0
-    st.session_state.volver_al_menu = False
-    st.experimental_rerun()
-
 # Pruebas
 pruebas = {
     "WAIS": {
@@ -224,11 +211,8 @@ if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
     st.markdown(f'''
     <div class="chat-header">
-        <div class="chat-header-left">
-            <img src="{pruebas['WAIS']['avatar']}">
-            <div><b>WAIS</b><br><small>en línea</small></div>
-        </div>
-        <button onclick="window.location.reload()" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">Volver</button>
+        <img src="{pruebas['WAIS']['avatar']}">
+        <div><b>WAIS</b><br><small>en línea</small></div>
     </div>
     <div class="chat-body">''', unsafe_allow_html=True)
 
@@ -251,7 +235,8 @@ if st.session_state.pantalla == "wais":
         st.markdown('</div>', unsafe_allow_html=True)
     else:
         if st.button("Volver al menú"):
-            st.session_state.volver_al_menu = True
+            st.session_state.pantalla = "menu"
+            st.session_state.paso_wais = 0
             st.experimental_rerun()
 
     st.markdown('''
