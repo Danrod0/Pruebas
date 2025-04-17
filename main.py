@@ -321,10 +321,10 @@ def mostrar_chat(nombre, conversacion, paso_key):
             </div>
         </div>''', unsafe_allow_html=True)
     with header_cols[1]:
-        if st.button("Volver"):
+        if st.button("Volver", key=f"volver_{nombre}"):
             st.session_state.pantalla = "menu"
             st.session_state[paso_key] = 0
-            st.experimental_rerun()
+            st.rerun()
 
     st.markdown('<div class="chat-body">', unsafe_allow_html=True)
     paso = st.session_state[paso_key]
