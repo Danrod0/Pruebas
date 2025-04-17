@@ -24,11 +24,14 @@ st.markdown('''
     align-items: center;
     justify-content: space-between;
     padding: 12px 15px;
-    border-bottom: 1px solid #444;
 }
 .chat-preview:hover {
     background-color: #444;
     cursor: pointer;
+}
+.divider {
+    border-bottom: 1px solid #444;
+    margin: 0 15px;
 }
 .chat-avatar {
     display: flex;
@@ -151,7 +154,7 @@ st.markdown('''
 </style>
 ''', unsafe_allow_html=True)
 
-# Estado inicial
+# Estado
 if "pantalla" not in st.session_state:
     st.session_state.pantalla = "menu"
 if "paso_wais" not in st.session_state:
@@ -191,7 +194,7 @@ pruebas = {
     }
 }
 
-# Conversación de WAIS
+# Conversación WAIS
 wais_conversacion = [
     {
         "pregunta": "Hola, soy WAIS. ¿Querés saber más sobre inteligencia?",
@@ -218,7 +221,7 @@ wais_conversacion = [
 # Menú
 if st.session_state.pantalla == "menu":
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
-    for nombre, data in pruebas.items():
+    for i, (nombre, data) in enumerate(pruebas.items()):
         cols = st.columns([0.15, 0.7, 0.15])
         with cols[0]:
             st.image(data["avatar"], width=45)
@@ -228,9 +231,11 @@ if st.session_state.pantalla == "menu":
                 st.session_state.pantalla = nombre.lower()
         with cols[2]:
             st.markdown(f"<div style='text-align:right;font-size:12px;color:#ccc;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
+        if i < len(pruebas) - 1:
+            st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Chat de WAIS
+# Chat WAIS
 if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
     st.markdown(f'''
@@ -240,7 +245,7 @@ if st.session_state.pantalla == "wais":
             <div><b>WAIS</b><br><small>en línea</small></div>
         </div>
         <form action="" method="post">
-            <button name="volver" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">Volver</button>
+            <button name="volver" type="submit" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">Volver</button>
         </form>
     </div>
     <div class="chat-body">''', unsafe_allow_html=True)
@@ -259,15 +264,14 @@ if st.session_state.pantalla == "wais":
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    if paso < len(wais_conversacion):
-        opciones = wais_conversacion[paso]["respuestas"]
-        if opciones:
-            st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
-            for opcion in opciones:
-                if st.button(opcion, key=f"respuesta_{paso}"):
-                    st.session_state.paso_wais += 1
-                    st.experimental_rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
+    opciones = wais_conversacion[paso]["respuestas"] if paso < len(wais_conversacion) else []
+    if opciones:
+        st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
+        for opcion in opciones:
+            if st.button(opcion, key=f"respuesta_{paso}"):
+                st.session_state.paso_wais += 1
+                st.experimental_rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('''
     <div class="chat-footer">
