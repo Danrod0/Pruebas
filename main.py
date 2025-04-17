@@ -7,26 +7,27 @@ st.markdown('''
 <style>
 .stApp {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #ece5dd;
+    background-color: #d1d1d1;
 }
 .menu-container {
     max-width: 600px;
     margin: auto;
     margin-top: 40px;
-    background-color: white;
+    background-color: #2f2f2f;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     overflow: hidden;
+    color: white;
 }
 .chat-preview {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 12px 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #444;
 }
 .chat-preview:hover {
-    background-color: #f5f5f5;
+    background-color: #444;
     cursor: pointer;
 }
 .chat-avatar {
@@ -43,11 +44,11 @@ st.markdown('''
     line-height: 1.2;
 }
 .chat-info small {
-    color: gray;
+    color: #ccc;
 }
 .chat-time {
     font-size: 12px;
-    color: gray;
+    color: #ccc;
     text-align: right;
 }
 .chat-unread {
@@ -76,11 +77,17 @@ st.markdown('''
 .chat-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     background-color: #075E54;
     color: white;
     padding: 10px;
     border-radius: 10px 10px 0 0;
+}
+.chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .chat-header img {
     width: 40px;
@@ -150,7 +157,7 @@ if "pantalla" not in st.session_state:
 if "paso_wais" not in st.session_state:
     st.session_state.paso_wais = 0
 
-# Definición de pruebas
+# Pruebas
 pruebas = {
     "WAIS": {
         "avatar": "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
@@ -184,7 +191,7 @@ pruebas = {
     }
 }
 
-# Conversación WAIS
+# Conversación de WAIS
 wais_conversacion = [
     {
         "pregunta": "Hola, soy WAIS. ¿Querés saber más sobre inteligencia?",
@@ -208,31 +215,40 @@ wais_conversacion = [
     }
 ]
 
-# Menú de chats
+# Menú
 if st.session_state.pantalla == "menu":
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
     for nombre, data in pruebas.items():
-        with st.container():
-            cols = st.columns([0.15, 0.7, 0.15])
-            with cols[0]:
-                st.image(data["avatar"], width=45)
-            with cols[1]:
-                st.markdown(f"<b>{nombre}</b><br><small>{data['mensaje']}</small>", unsafe_allow_html=True)
-            with cols[2]:
-                st.markdown(f"<div style='text-align:right;font-size:12px;color:gray;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
-            if st.button(f"Iniciar chat con {nombre}", key=nombre):
+        cols = st.columns([0.15, 0.7, 0.15])
+        with cols[0]:
+            st.image(data["avatar"], width=45)
+        with cols[1]:
+            st.markdown(f"<b>{nombre}</b><br><small>{data['mensaje']}</small>", unsafe_allow_html=True)
+            if st.button(f"Responder a {nombre}", key=nombre):
                 st.session_state.pantalla = nombre.lower()
+        with cols[2]:
+            st.markdown(f"<div style='text-align:right;font-size:12px;color:#ccc;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Chat con WAIS
+# Chat de WAIS
 if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
     st.markdown(f'''
     <div class="chat-header">
-        <img src="{pruebas['WAIS']['avatar']}">
-        <div><b>WAIS</b><br><small>en línea</small></div>
+        <div class="chat-header-left">
+            <img src="{pruebas['WAIS']['avatar']}">
+            <div><b>WAIS</b><br><small>en línea</small></div>
+        </div>
+        <form action="" method="post">
+            <button name="volver" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">Volver</button>
+        </form>
     </div>
     <div class="chat-body">''', unsafe_allow_html=True)
+
+    if st.session_state.get("volver"):
+        st.session_state.pantalla = "menu"
+        st.session_state.paso_wais = 0
+        st.experimental_rerun()
 
     paso = st.session_state.paso_wais
     for i in range(paso + 1):
@@ -248,14 +264,10 @@ if st.session_state.pantalla == "wais":
         if opciones:
             st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
             for opcion in opciones:
-                if st.button(opcion):
+                if st.button(opcion, key=f"respuesta_{paso}"):
                     st.session_state.paso_wais += 1
                     st.experimental_rerun()
             st.markdown('</div>', unsafe_allow_html=True)
-        else:
-            if st.button("Volver al menú"):
-                st.session_state.pantalla = "menu"
-                st.session_state.paso_wais = 0
 
     st.markdown('''
     <div class="chat-footer">
