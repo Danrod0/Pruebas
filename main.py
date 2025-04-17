@@ -331,6 +331,19 @@ def mostrar_chat(nombre, conversacion, paso_key):
 
 # Menú
 if st.session_state.pantalla == "menu":
+    # Encabezado estilo WhatsApp
+    st.markdown('<div class="header">', unsafe_allow_html=True)
+    st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
+    st.markdown('''
+    <div class="chip-row">
+        <div class="chip">All</div>
+        <div class="chip">Unread 16</div>
+        <div class="chip">Favorites</div>
+        <div class="chip">Groups 9</div>
+    </div>
+    ''', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
     for i, (nombre, data) in enumerate(pruebas.items()):
         cols = st.columns([0.15, 0.7, 0.15])
