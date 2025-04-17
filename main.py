@@ -60,11 +60,11 @@ elif st.session_state.pantalla == "chat":
                 st.session_state.wais_step = 2
 
         elif st.session_state.wais_step == 2:
-            st.chat_message("assistant").markdown("Mis escalas principales son:
+            st.chat_message("assistant").markdown("""Mis escalas principales son:
 - Comprensión Verbal
 - Razonamiento Perceptual
 - Memoria de Trabajo
-- Velocidad de Procesamiento")
+- Velocidad de Procesamiento""")
             if st.button("¿Cómo se aplica?"):
                 st.session_state.wais_step = 3
 
