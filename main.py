@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Simulador de Pruebas Psicológicas", layout="wide")
 
-# CSS general
+# CSS
 st.markdown('''
 <style>
 .stApp {
@@ -16,6 +16,43 @@ st.markdown('''
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+.chat-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+.chat-preview:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+.chat-avatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.chat-avatar img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.chat-info {
+    line-height: 1.2;
+}
+.chat-info small {
+    color: gray;
+}
+.chat-time {
+    font-size: 12px;
+    color: gray;
+}
+.chat-unread {
+    color: #25D366;
+    font-size: 20px;
+    margin-left: 5px;
 }
 .chat-box {
     background-color: #ffe6f0;
@@ -60,6 +97,22 @@ st.markdown('''
     max-width: 80%;
     margin-left: auto;
 }
+.response-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin: 15px 15px 0 15px;
+}
+.response-buttons button {
+    background-color: #d81b60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
 .chat-footer {
     display: flex;
     align-items: center;
@@ -78,71 +131,65 @@ st.markdown('''
     font-size: 20px;
     cursor: pointer;
 }
-.chat-button {
-    background-color: #25D366;
-    color: white;
-    width: 100%;
-    text-align: left;
-    padding: 10px 15px;
-    border: none;
-    border-bottom: 1px solid #eee;
-    font-size: 16px;
-}
-.chat-button:hover {
-    background-color: #dcf8c6;
-}
-.response-buttons button {
-    background-color: #d81b60;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 20px;
-    margin-top: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
 </style>
 ''', unsafe_allow_html=True)
 
-# Estados iniciales
+# Estado inicial
 if "pantalla" not in st.session_state:
     st.session_state.pantalla = "menu"
 if "paso_wais" not in st.session_state:
     st.session_state.paso_wais = 0
+if "leido_wais" not in st.session_state:
+    st.session_state.leido_wais = False
 
 # Conversación de WAIS
 wais_conversacion = [
     {
-        "pregunta": "Hola, soy WAIS. &iquest;Quer&eacute;s saber m&aacute;s sobre inteligencia?",
-        "respuestas": ["S&iacute;, contame"],
-        "respuesta_usuario": "S&iacute;, contame"
+        "pregunta": "Hola, soy WAIS. ¿Querés saber más sobre inteligencia?",
+        "respuestas": ["Sí, contame"],
+        "respuesta_usuario": "Sí, contame"
     },
     {
-        "pregunta": "Sirvo para evaluar la inteligencia general en personas mayores de 16 a&ntilde;os.",
-        "respuestas": ["&iquest;Y c&oacute;mo lo hac&eacute;s?"],
-        "respuesta_usuario": "&iquest;Y c&oacute;mo lo hac&eacute;s?"
+        "pregunta": "Sirvo para evaluar la inteligencia general en personas mayores de 16 años.",
+        "respuestas": ["¿Y cómo lo hacés?"],
+        "respuesta_usuario": "¿Y cómo lo hacés?"
     },
     {
-        "pregunta": "Mis escalas incluyen: Comprensi&oacute;n Verbal, Razonamiento Perceptual, Memoria de Trabajo y Velocidad de Procesamiento.",
-        "respuestas": ["&iquest;Y c&oacute;mo se aplica?"],
-        "respuesta_usuario": "&iquest;Y c&oacute;mo se aplica?"
+        "pregunta": "Mis escalas incluyen: Comprensión Verbal, Razonamiento Perceptual, Memoria de Trabajo y Velocidad de Procesamiento.",
+        "respuestas": ["¿Y cómo se aplica?"],
+        "respuesta_usuario": "¿Y cómo se aplica?"
     },
     {
-        "pregunta": "Se aplica en sesiones individuales de 60 a 90 minutos. &iexcl;Gracias por hablar conmigo!",
+        "pregunta": "Se aplica en sesiones individuales de 60 a 90 minutos. ¡Gracias por hablar conmigo!",
         "respuestas": [],
         "respuesta_usuario": ""
     }
 ]
 
-# Menú tipo WhatsApp
+# Menú estilo WhatsApp
 if st.session_state.pantalla == "menu":
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
-    st.markdown('<div class="chat-button" onclick="window.location.reload();">WAIS<br><small>Hola, &iquest;Quer&eacute;s saber m&aacute;s sobre inteligencia?</small></div>', unsafe_allow_html=True)
+    st.markdown('''
+    <div class="chat-preview" onclick="window.location.reload();">
+        <div class="chat-avatar">
+            <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png">
+            <div class="chat-info">
+                <b>WAIS</b><br>
+                <small>Hola, ¿querés saber más sobre inteligencia?</small>
+            </div>
+        </div>
+        <div class="chat-time">
+            4:21 p.m.
+            <span class="chat-unread">●</span>
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
     if st.button("Iniciar chat con WAIS"):
         st.session_state.pantalla = "wais"
+        st.session_state.leido_wais = True
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Chat
+# Chat estilo WhatsApp
 if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
 
@@ -180,7 +227,6 @@ if st.session_state.pantalla == "wais":
                 st.session_state.pantalla = "menu"
                 st.session_state.paso_wais = 0
 
-    # Footer con íconos
     st.markdown('''
     <div class="chat-footer">
         <span class="icon">&#128206;</span>
