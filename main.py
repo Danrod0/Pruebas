@@ -1,119 +1,146 @@
+
 import streamlit as st
 
 st.set_page_config(page_title="Chat WAIS", layout="wide")
 
-# CSS
-css = '''
-<style>
-.stApp {
-    background-image: url('https://i.ibb.co/sQBgQXf/pastel-wa-bg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: 'Segoe UI', sans-serif;
-}
-.chat-container {
-    background-color: rgba(255, 255, 255, 0.9);
-    max-width: 600px;
-    margin: auto;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-top: 30px;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-}
-.chat-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #075E54;
-    color: white;
-    padding: 10px;
-    border-radius: 10px 10px 0 0;
-}
-.chat-header img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-.bubble-assistant {
-    background-color: #f1f0f0;
-    color: black;
-    padding: 10px 14px;
-    border-radius: 0 10px 10px 10px;
-    margin: 8px 0;
-    width: fit-content;
-    max-width: 80%;
-}
-.bubble-user {
-    background-color: #dcf8c6;
-    color: black;
-    padding: 10px 14px;
-    border-radius: 10px 0 10px 10px;
-    margin: 8px 0;
-    width: fit-content;
-    max-width: 80%;
-    margin-left: auto;
-}
-.chat-footer {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 0 0 10px 10px;
-    margin-top: 10px;
-    gap: 10px;
-}
-.chat-footer input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-}
-.icon {
-    font-size: 20px;
-    cursor: pointer;
-}
-</style>
-'''
-st.markdown(css, unsafe_allow_html=True)
-
-# Contenedor
-st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-
-# Cabecera
+# Estilos
 st.markdown('''
-<div class="chat-header">
-    <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png">
-    <div>
-        <b>WAIS</b><br><small>en lÃ­nea</small>
-    </div>
-</div>
+    <style>
+    .stApp {
+        background-color: #ffe6f0;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .chat-container {
+        background-color: #fff;
+        max-width: 600px;
+        margin: auto;
+        padding: 10px 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    }
+    .chat-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #d81b60;
+        color: white;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+    }
+    .chat-header img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    .bubble-assistant {
+        background-color: #f1f0f0;
+        color: black;
+        padding: 10px 14px;
+        border-radius: 0 10px 10px 10px;
+        margin: 8px 0;
+        width: fit-content;
+        max-width: 80%;
+    }
+    .bubble-user {
+        background-color: #ffcdd2;
+        color: black;
+        padding: 10px 14px;
+        border-radius: 10px 0 10px 10px;
+        margin: 8px 0;
+        width: fit-content;
+        max-width: 80%;
+        margin-left: auto;
+    }
+    .response-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    button {
+        background-color: #d81b60 !important;
+        color: white !important;
+        border: none;
+        padding: 10px;
+        border-radius: 20px;
+        font-size: 16px !important;
+        cursor: pointer;
+    }
+    </style>
 ''', unsafe_allow_html=True)
 
-# Mensajes
-mensajes = [
-    ("assistant", "Hola, soy WAIS. Â¿QuerÃ©s saber mÃ¡s sobre inteligencia?"),
-    ("user", "SÃ­, contame"),
-    ("assistant", "Sirvo para evaluar la inteligencia general en personas mayores de 16 aÃ±os."),
-    ("user", "Â¿Y cÃ³mo lo hacÃ©s?"),
-    ("assistant", "Mis escalas incluyen:<br>- ComprensiÃ³n Verbal<br>- Razonamiento Perceptual<br>- Memoria de Trabajo<br>- Velocidad de Procesamiento"),
-    ("user", "Â¿Y cÃ³mo se aplica?"),
-    ("assistant", "Se aplica en sesiones individuales de 60 a 90 minutos. Â¡Gracias por hablar conmigo!")
+# Flujo de conversaciÃ³n
+wais_conversacion = [
+    {
+        "pregunta": "Hola, soy WAIS. Â¿QuerÃ©s saber mÃ¡s sobre inteligencia?",
+        "respuestas": ["SÃ­, contame"],
+        "respuesta_usuario": "SÃ­, contame"
+    },
+    {
+        "pregunta": "Sirvo para evaluar la inteligencia general en personas mayores de 16 aÃ±os.",
+        "respuestas": ["Â¿Y cÃ³mo lo hacÃ©s?"],
+        "respuesta_usuario": "Â¿Y cÃ³mo lo hacÃ©s?"
+    },
+    {
+        "pregunta": "Mis escalas incluyen: ComprensiÃ³n Verbal, Razonamiento Perceptual, Memoria de Trabajo y Velocidad de Procesamiento.",
+        "respuestas": ["Â¿Y cÃ³mo se aplica?"],
+        "respuesta_usuario": "Â¿Y cÃ³mo se aplica?"
+    },
+    {
+        "pregunta": "Se aplica en sesiones individuales de 60 a 90 minutos. Â¡Gracias por hablar conmigo!",
+        "respuestas": [],
+        "respuesta_usuario": ""
+    }
 ]
 
-for rol, texto in mensajes:
-    clase = "bubble-assistant" if rol == "assistant" else "bubble-user"
-    st.markdown(f'<div class="{clase}">{texto}</div>', unsafe_allow_html=True)
+# Estado inicial
+if "pantalla" not in st.session_state:
+    st.session_state.pantalla = "menu"
+if "paso_wais" not in st.session_state:
+    st.session_state.paso_wais = 0
 
-# Footer
-st.markdown('''
-<div class="chat-footer">
-    <span class="icon">&#128206;</span>
-    <span class="icon">&#128247;</span>
-    <input type="text" placeholder="EscribÃ­ un mensaje">
-    <span class="icon">&#127908;</span>
-</div>
-''', unsafe_allow_html=True)
+# MenÃº inicial
+if st.session_state.pantalla == "menu":
+    st.markdown("<h2 style='text-align:center;'>Simulador de conversaciÃ³n</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;'>SeleccionÃ¡ con quÃ© prueba querÃ©s chatear:</p>", unsafe_allow_html=True)
+    if st.button("Chat con WAIS"):
+        st.session_state.pantalla = "wais"
 
-# Fin contenedor
-st.markdown('</div>', unsafe_allow_html=True)
+# Chat WAIS
+if st.session_state.pantalla == "wais":
+    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+
+    # Encabezado
+    st.markdown('''
+    <div class="chat-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png">
+        <div>
+            <b>WAIS</b><br><small>en lÃ­nea</small>
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+
+    paso = st.session_state.paso_wais
+
+    # Mostrar mensajes anteriores
+    for i in range(paso + 1):
+        mensaje = wais_conversacion[i]
+        st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"]}</div>', unsafe_allow_html=True)
+        if i < paso:
+            st.markdown(f'<div class="bubble-user">{mensaje["respuesta_usuario"]}</div>', unsafe_allow_html=True)
+
+    # Mostrar opciones actuales
+    if paso < len(wais_conversacion):
+        opciones = wais_conversacion[paso]["respuestas"]
+        if opciones:
+            for opcion in opciones:
+                if st.button(opcion):
+                    st.session_state.paso_wais += 1
+                    st.experimental_rerun()
+        else:
+            if st.button("Volver al menÃº"):
+                st.session_state.pantalla = "menu"
+                st.session_state.paso_wais = 0
+
+    st.markdown('</div>', unsafe_allow_html=True)
