@@ -190,6 +190,30 @@ wais_conversacion = [
 
 # Menú
 if st.session_state.pantalla == "menu":
+    st.markdown('''
+<div style="background-color: #111; padding: 20px 20px 10px 20px; color: white; max-width: 600px; margin: auto; border-radius: 0 0 12px 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="margin: 0; font-size: 32px;">Chats</h1>
+        <div style="display: flex; gap: 10px;">
+            <div style="width: 35px; height: 35px; background-color: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 18px;">📷</span>
+            </div>
+            <div style="width: 35px; height: 35px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 24px; color: white;">+</span>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 15px;">
+        <input type="text" placeholder="Ask Meta AI or Search" disabled style="width: 100%; padding: 10px; background-color: #2d2d2d; border: none; border-radius: 10px; color: #bbb;" />
+    </div>
+    <div style="margin-top: 15px; display: flex; gap: 10px;">
+        <div style="padding: 5px 15px; background-color: #134e4a; color: white; border-radius: 20px;">All</div>
+        <div style="padding: 5px 15px; background-color: #444; color: #ccc; border-radius: 20px;">Unread 16</div>
+        <div style="padding: 5px 15px; background-color: #444; color: #ccc; border-radius: 20px;">Favorites</div>
+        <div style="padding: 5px 15px; background-color: #444; color: #ccc; border-radius: 20px;">Groups 9</div>
+    </div>
+</div>
+''', unsafe_allow_html=True)
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
     for i, (nombre, data) in enumerate(pruebas.items()):
         cols = st.columns([0.15, 0.7, 0.15])
