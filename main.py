@@ -343,7 +343,7 @@ def mostrar_chat(nombre, conversacion, paso_key):
             for opcion in opciones:
                 if st.button(opcion, key=f"{nombre}_{paso}_{opcion}"):
                     st.session_state[paso_key] += 1
-                    st.experimental_rerun()
+                    st.rerun()  # Esta es la nueva forma (más segura que experimental_rerun)
             st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('''
