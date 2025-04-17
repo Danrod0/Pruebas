@@ -1,122 +1,119 @@
 import streamlit as st
-import base64
 
-# Configurar la página
-st.set_page_config(page_title="Simulador de WhatsApp Psicológico", layout="wide")
+st.set_page_config(page_title="Chat WAIS", layout="wide")
 
-# Fondo estilo WhatsApp en base64
-def set_background():
-    with open("https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?fit=crop&w=600&q=80", "rb") as f:
-        data = f.read()
-        encoded = base64.b64encode(data).decode()
-        css = f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/png;base64,{encoded}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-        </style>
-        """
-        st.markdown(css, unsafe_allow_html=True)
-
-# Aplicar fondo
-# set_background()  # (No aplicable en entorno restringido, solo funciona en Streamlit Cloud con archivos locales o URLs directas)
-
-# Simular datos de pruebas
-pruebas = {
-    "WAIS": {
-        "avatar": "🧠",
-        "mensaje": "¿Querés saber más sobre inteligencia?",
-        "hora": "4:20 PM",
-        "leido": False
-    },
-    "NEUROPSI": {
-        "avatar": "🧬",
-        "mensaje": "¿Tenés problemas de memoria o atención?",
-        "hora": "4:35 PM",
-        "leido": False
-    },
-    "MMPI-2-R": {
-        "avatar": "🕵️",
-        "mensaje": "Puedo ayudarte a entender tu personalidad.",
-        "hora": "5:01 PM",
-        "leido": False
-    },
-    "PAI": {
-        "avatar": "📊",
-        "mensaje": "Tengo escalas clínicas para vos.",
-        "hora": "5:15 PM",
-        "leido": False
-    },
-    "NEO-PI-R": {
-        "avatar": "🌈",
-        "mensaje": "¿Querés conocer tus rasgos de personalidad?",
-        "hora": "5:45 PM",
-        "leido": False
-    }
+# CSS
+css = '''
+<style>
+.stApp {
+    background-image: url('https://i.ibb.co/sQBgQXf/pastel-wa-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', sans-serif;
 }
+.chat-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: auto;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+}
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #075E54;
+    color: white;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+}
+.chat-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.bubble-assistant {
+    background-color: #f1f0f0;
+    color: black;
+    padding: 10px 14px;
+    border-radius: 0 10px 10px 10px;
+    margin: 8px 0;
+    width: fit-content;
+    max-width: 80%;
+}
+.bubble-user {
+    background-color: #dcf8c6;
+    color: black;
+    padding: 10px 14px;
+    border-radius: 10px 0 10px 10px;
+    margin: 8px 0;
+    width: fit-content;
+    max-width: 80%;
+    margin-left: auto;
+}
+.chat-footer {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    margin-top: 10px;
+    gap: 10px;
+}
+.chat-footer input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+.icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+</style>
+'''
+st.markdown(css, unsafe_allow_html=True)
 
-if "pantalla" not in st.session_state:
-    st.session_state.pantalla = "inicio"
-if "chat_actual" not in st.session_state:
-    st.session_state.chat_actual = ""
-if "leidos" not in st.session_state:
-    st.session_state.leidos = {k: False for k in pruebas}
-if "wais_step" not in st.session_state:
-    st.session_state.wais_step = 0
+# Contenedor
+st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
-def volver_al_menu():
-    st.session_state.pantalla = "inicio"
-    st.session_state.chat_actual = ""
+# Cabecera
+st.markdown('''
+<div class="chat-header">
+    <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png">
+    <div>
+        <b>WAIS</b><br><small>en lÃ­nea</small>
+    </div>
+</div>
+''', unsafe_allow_html=True)
 
-# INICIO
-if st.session_state.pantalla == "inicio":
-    st.markdown("<h2 style='color:white;'>Chats</h2>", unsafe_allow_html=True)
-    for nombre, datos in pruebas.items():
-        col1, col2 = st.columns([0.85, 0.15])
-        with col1:
-            if st.button(f"{datos['avatar']}  {nombre}\n{datos['mensaje']}", key=nombre):
-                st.session_state.pantalla = "chat"
-                st.session_state.chat_actual = nombre
-                st.session_state.leidos[nombre] = True
-        with col2:
-            if not st.session_state.leidos[nombre]:
-                st.markdown("<span style='color:lime;font-size:20px;'>●</span>", unsafe_allow_html=True)
+# Mensajes
+mensajes = [
+    ("assistant", "Hola, soy WAIS. Â¿QuerÃ©s saber mÃ¡s sobre inteligencia?"),
+    ("user", "SÃ­, contame"),
+    ("assistant", "Sirvo para evaluar la inteligencia general en personas mayores de 16 aÃ±os."),
+    ("user", "Â¿Y cÃ³mo lo hacÃ©s?"),
+    ("assistant", "Mis escalas incluyen:<br>- ComprensiÃ³n Verbal<br>- Razonamiento Perceptual<br>- Memoria de Trabajo<br>- Velocidad de Procesamiento"),
+    ("user", "Â¿Y cÃ³mo se aplica?"),
+    ("assistant", "Se aplica en sesiones individuales de 60 a 90 minutos. Â¡Gracias por hablar conmigo!")
+]
 
-# CHAT
-elif st.session_state.pantalla == "chat":
-    prueba = st.session_state.chat_actual
-    st.markdown(f"<h3 style='color:white;'>{prueba} {pruebas[prueba]['avatar']}</h3>", unsafe_allow_html=True)
-    st.markdown("---")
+for rol, texto in mensajes:
+    clase = "bubble-assistant" if rol == "assistant" else "bubble-user"
+    st.markdown(f'<div class="{clase}">{texto}</div>', unsafe_allow_html=True)
 
-    if prueba == "WAIS":
-        if st.session_state.wais_step == 0:
-            st.chat_message("assistant").markdown("Hola, soy WAIS. ¿Querés saber más sobre inteligencia?")
-            if st.button("Sí, contame"):
-                st.session_state.wais_step = 1
+# Footer
+st.markdown('''
+<div class="chat-footer">
+    <span class="icon">&#128206;</span>
+    <span class="icon">&#128247;</span>
+    <input type="text" placeholder="EscribÃ­ un mensaje">
+    <span class="icon">&#127908;</span>
+</div>
+''', unsafe_allow_html=True)
 
-        elif st.session_state.wais_step == 1:
-            st.chat_message("assistant").markdown("Sirvo para evaluar la inteligencia general en personas mayores de 16 años.")
-            st.chat_message("user").markdown("¿Y cómo lo hacés?")
-            st.session_state.wais_step = 2
-
-        elif st.session_state.wais_step == 2:
-            st.chat_message("assistant").markdown("""Mis escalas incluyen:
-- Comprensión Verbal
-- Razonamiento Perceptual
-- Memoria de Trabajo
-- Velocidad de Procesamiento""")
-            st.chat_message("user").markdown("¿Y cómo se aplica?")
-            st.session_state.wais_step = 3
-
-        elif st.session_state.wais_step == 3:
-            st.chat_message("assistant").markdown("Se aplica en sesiones individuales de 60 a 90 minutos. ¡Gracias por hablar conmigo!")
-            if st.button("Volver al menú"):
-                volver_al_menu()
-
-    else:
-        st.chat_message("assistant").markdown(f"Este chat con {prueba} está en construcción.")
-        if st.button("Volver al menú"):
-            volver_al_menu()
+# Fin contenedor
+st.markdown('</div>', unsafe_allow_html=True)
