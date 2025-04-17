@@ -223,65 +223,79 @@ pruebas = {
 # Conversaciones
 
 wais_conversacion = [
-    {"pregunta": "Hola, soy WAIS-IV. ¿Querés saber más sobre inteligencia?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
-    {"pregunta": "Mi nombre completo es: Escala de Inteligencia para Adultos de Wechsler, Cuarta Edición.", "respuestas": ["¿Qué es lo que mides?"], "respuesta_usuario": "¿Qué es lo que mides?"},
-    {"pregunta": "Mido la inteligencia general (CI) en adultos.", "respuestas": ["¿Y para qué se usa?"], "respuesta_usuario": "¿Y para qué se usa?"},
-    {"pregunta": "Me usan para:\n- Diagnóstico de discapacidad intelectual o superdotación\n- Evaluación de deterioro cognitivo (como demencia)\n- Apoyo clínico, neuropsicológico y forense", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
-    {"pregunta": "1. Comprensión Verbal (ICV):\n• Semejanzas\n• Vocabulario\n• Información\n• (Complementaria: Comprensión)", "respuestas": ["¿Y las otras?"], "respuesta_usuario": "¿Y las otras?"},
-    {"pregunta": "2. Razonamiento Perceptivo (IRP):\n• Diseño con cubos\n• Matrices\n• Puzzles visuales\n• (Complementarias: Peso de figuras, Figuras incompletas)", "respuestas": ["¿Y la siguiente?"], "respuesta_usuario": "¿Y la siguiente?"},
-    {"pregunta": "3. Memoria de Trabajo (IMT):\n• Retención de dígitos\n• Aritmética\n• (Complementaria: Secuencia de letras y números)", "respuestas": ["¿Falta alguna más?"], "respuesta_usuario": "¿Falta alguna más?"},
-    {"pregunta": "4. Velocidad de Procesamiento (IVP):\n• Claves\n• Búsqueda de símbolos\n• (Complementaria: Cancelación)", "respuestas": ["¿Algo más importante que deba saber?"], "respuesta_usuario": "¿Algo más importante que deba saber?"},
-    {"pregunta": "Sí. También tengo un resultado general: el Cociente Intelectual Total (CIT), que resume tu desempeño global. ¡Gracias por conversar conmigo!", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Mi nombre completo es: Escala de Inteligencia para Adultos de Wechsler, Cuarta Edición.", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
+    {"pregunta": "Mido la inteligencia general (CI) en adultos.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
+    {"pregunta": "Se usa para:\n• Diagnóstico de discapacidad intelectual o superdotación\n• Evaluación de deterioro cognitivo (ej. demencia)\n• Apoyo en contextos clínicos, neuropsicológicos y forenses", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
+    {"pregunta": "Comprensión Verbal (ICV):\n• Semejanzas\n• Vocabulario\n• Información\n• (Complementaria: Comprensión)", "respuestas": ["¿Y las otras escalas?"], "respuesta_usuario": "¿Y las otras escalas?"},
+    {"pregunta": "Razonamiento Perceptivo (IRP):\n• Diseño con cubos\n• Matrices\n• Puzzles visuales\n• (Complementarias: Peso de figuras, Figuras incompletas)", "respuestas": ["¿Y la memoria de trabajo?"], "respuesta_usuario": "¿Y la memoria de trabajo?"},
+    {"pregunta": "Memoria de Trabajo (IMT):\n• Retención de dígitos\n• Aritmética\n• (Complementaria: Secuencia de letras y números)", "respuestas": ["¿Y la velocidad de procesamiento?"], "respuesta_usuario": "¿Y la velocidad de procesamiento?"},
+    {"pregunta": "Velocidad de Procesamiento (IVP):\n• Claves\n• Búsqueda de símbolos\n• (Complementaria: Cancelación)", "respuestas": ["¿Algo más importante?"], "respuesta_usuario": "¿Algo más importante?"},
+    {"pregunta": "Sí. También tengo un resultado general: el Cociente Intelectual Total (CIT).", "respuestas": [], "respuesta_usuario": ""}
 ]
 
 neuropsi_conversacion = [
-    {"pregunta": "Hola, soy NEUROPSI. ¿Querés saber cómo funciona tu atención y memoria?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
-    {"pregunta": "Mi nombre completo es: NEUROPSI: Atención y Memoria.", "respuestas": ["¿Qué es lo que medís?"], "respuesta_usuario": "¿Qué es lo que medís?"},
-    {"pregunta": "Mido el funcionamiento cognitivo general: atención, memoria y funciones ejecutivas.", "respuestas": ["¿Y para qué se usa?"], "respuesta_usuario": "¿Y para qué se usa?"},
-    {"pregunta": "Se usa para:\n- Detectar deterioro cognitivo\n- Evaluación neuropsicológica breve\n- Apoyo diagnóstico en trastornos neurológicos y psiquiátricos", "respuestas": ["¿Cuáles son tus áreas?"], "respuesta_usuario": "¿Cuáles son tus áreas?"},
-    {"pregunta": "1. Orientación:\n• Personal\n• Temporal\n• Espacial", "respuestas": ["¿Y las otras áreas?"], "respuesta_usuario": "¿Y las otras áreas?"},
-    {"pregunta": "2. Atención y concentración:\n• Atención selectiva\n• Atención sostenida\n• Atención alternante\n• Cálculo mental", "respuestas": ["¿Y la memoria?"], "respuesta_usuario": "¿Y la memoria?"},
-    {"pregunta": "3. Memoria:\n• Codificación\n• Evocación libre\n• Evocación diferida\n• Reconocimiento", "respuestas": ["¿Te queda alguna más?"], "respuesta_usuario": "¿Te queda alguna más?"},
-    {"pregunta": "4. Funciones ejecutivas:\n• Fluidez verbal (fonológica y semántica)\n• Inhibición\n• Planeación (Torre de Hanoi)\n• Flexibilidad cognitiva", "respuestas": ["Gracias, NEUROPSI"], "respuesta_usuario": "Gracias, NEUROPSI"},
-    {"pregunta": "¡Con gusto! Estoy lista para ayudarte a explorar tu mente.", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Mi nombre completo es: NEUROPSI: Atención y Memoria.", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
+    {"pregunta": "Mido el funcionamiento cognitivo general: atención, memoria y funciones ejecutivas.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
+    {"pregunta": "Se usa para:\n• Detección de deterioro cognitivo\n• Evaluación neuropsicológica breve\n• Apoyo diagnóstico en trastornos neurológicos y psiquiátricos", "respuestas": ["¿Cuáles son tus áreas?"], "respuesta_usuario": "¿Cuáles son tus áreas?"},
+    {"pregunta": "Orientación:\n• Personal\n• Temporal\n• Espacial", "respuestas": ["¿Y la atención?"], "respuesta_usuario": "¿Y la atención?"},
+    {"pregunta": "Atención y concentración:\n• Selectiva\n• Sostenida\n• Alternante\n• Cálculo mental", "respuestas": ["¿Y la memoria?"], "respuesta_usuario": "¿Y la memoria?"},
+    {"pregunta": "Memoria:\n• Codificación\n• Evocación libre\n• Evocación diferida\n• Reconocimiento", "respuestas": ["¿Y las funciones ejecutivas?"], "respuesta_usuario": "¿Y las funciones ejecutivas?"},
+    {"pregunta": "Funciones ejecutivas:\n• Fluidez verbal (fonológica y semántica)\n• Inhibición\n• Planeación (Torre de Hanoi)\n• Flexibilidad cognitiva", "respuestas": [], "respuesta_usuario": ""}
 ]
 
 mmpi_conversacion = [
-    {"pregunta": "Hola, soy el MMPI-2-RF. ¿Querés descubrir más sobre tu personalidad y salud mental?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
-    {"pregunta": "Mi nombre completo es: Inventario Multifásico de Personalidad de Minnesota 2 – Forma Reestructurada.", "respuestas": ["¿Qué mides?"], "respuesta_usuario": "¿Qué mides?"},
+    {"pregunta": "Mi nombre completo es: Inventario Multifásico de Personalidad de Minnesota 2 – Forma Reestructurada.", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
     {"pregunta": "Mido rasgos clínicos, personalidad, psicopatología y estilo de respuesta.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
-    {"pregunta": "Se utiliza en:\n- Evaluaciones clínicas y forenses\n- Diagnóstico de trastornos psicológicos\n- Selección y orientación laboral", "respuestas": ["¿Qué escalas tenés?"], "respuesta_usuario": "¿Qué escalas tenés?"},
-    {"pregunta": "A. Validez (9):\n• VRIN-r, TRIN-r, F-r, Fp-r, Fs, FBS-r, L-r, K-r, RBS", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
-    {"pregunta": "B. Problemas emocionales/internos (9):\n• EID, RCd, RC1, RC2, RC4, RC6, RC7, RC8, RC9", "respuestas": ["¿Y las conductuales?"], "respuesta_usuario": "¿Y las conductuales?"},
-    {"pregunta": "C. Problemas conductuales/externalizantes:\n• AGG-r, ACT-r, SUB-r, DISC-r", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
-    {"pregunta": "D. Escalas interpersonales y de personalidad:\n• SHY-r, DSF-r, NFC-r, AXY-r, JCP-r, AGGR-r, MEC-r, SAV-r, TRT-r", "respuestas": ["Gracias MMPI"], "respuesta_usuario": "Gracias MMPI"},
-    {"pregunta": "¡Gracias a vos! Estoy listo para ayudarte a comprenderte mejor.", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Se usa en:\n• Evaluaciones clínicas y forenses\n• Diagnóstico de trastornos psicológicos\n• Selección y orientación laboral", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
+    {"pregunta": "Validez (9):\n• VRIN-r\n• TRIN-r\n• F-r\n• Fp-r\n• Fs\n• FBS-r\n• L-r\n• K-r\n• RBS", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
+    {"pregunta": "Problemas emocionales / internos (9):\n• EID\n• RCd\n• RC1\n• RC2\n• RC4\n• RC6\n• RC7\n• RC8\n• RC9", "respuestas": ["¿Y los problemas conductuales?"], "respuesta_usuario": "¿Y los problemas conductuales?"},
+    {"pregunta": "Problemas conductuales / externalizantes:\n• AGG-r\n• ACT-r\n• SUB-r\n• DISC-r", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
+    {"pregunta": "Escalas interpersonales y de personalidad:\n• SHY-r\n• DSF-r\n• NFC-r\n• AXY-r\n• JCP-r\n• AGGR-r\n• MEC-r\n• SAV-r\n• TRT-r", "respuestas": [], "respuesta_usuario": ""}
 ]
 
 pai_conversacion = [
-    {"pregunta": "¡Hola! Soy el Inventario de Evaluación de la Personalidad, PAI. ¿Querés saber cómo evalúo los trastornos y tu forma de afrontarlos?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
-    {"pregunta": "Mi nombre completo es: Personality Assessment Inventory.", "respuestas": ["¿Qué mides?"], "respuesta_usuario": "¿Qué mides?"},
+    {"pregunta": "Mi nombre completo es: Personality Assessment Inventory (PAI).", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
     {"pregunta": "Mido trastornos de personalidad, psicopatología y estilo de afrontamiento.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
-    {"pregunta": "Me usan para:\n- Diagnóstico clínico\n- Planificación de tratamiento\n- Evaluaciones judiciales, penitenciarias y laborales", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
-    {"pregunta": "A. Validez (4):\n• Inconsistencia (ICN)\n• Infrecuencia (INF)\n• Impresión negativa (NIM)\n• Impresión positiva (PIM)", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
-    {"pregunta": "B. Clínicas (11):\n• SOM, ANX, ARD, DEP, MAN, PAR, SCZ, BOR, ANT, ALC, DRG", "respuestas": ["¿Y las de tratamiento?"], "respuesta_usuario": "¿Y las de tratamiento?"},
-    {"pregunta": "C. Escalas de tratamiento (5):\n• AGG, SUI, STR, RXR, NON", "respuestas": ["¿Te queda alguna más?"], "respuesta_usuario": "¿Te queda alguna más?"},
-    {"pregunta": "D. Interpersonales (2):\n• Dominancia (DOM)\n• Calidez (WRM)", "respuestas": ["Gracias PAI"], "respuesta_usuario": "Gracias PAI"},
-    {"pregunta": "¡A vos! Estoy lista para ayudarte a comprenderte mejor.", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Se usa en:\n• Diagnóstico clínico\n• Planificación de tratamiento\n• Evaluaciones judiciales, penitenciarias y laborales", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
+    {"pregunta": "Validez (4):\n• ICN\n• INF\n• NIM\n• PIM", "respuestas": ["¿Y las clínicas?"], "respuesta_usuario": "¿Y las clínicas?"},
+    {"pregunta": "Clínicas (11):\n• SOM\n• ANX\n• ARD\n• DEP\n• MAN\n• PAR\n• SCZ\n• BOR\n• ANT\n• ALC\n• DRG", "respuestas": ["¿Y las de tratamiento?"], "respuesta_usuario": "¿Y las de tratamiento?"},
+    {"pregunta": "Escalas de tratamiento (5):\n• AGG\n• SUI\n• STR\n• RXR\n• NON", "respuestas": ["¿Y las interpersonales?"], "respuesta_usuario": "¿Y las interpersonales?"},
+    {"pregunta": "Interpersonales (2):\n• DOM\n• WRM", "respuestas": [], "respuesta_usuario": ""}
 ]
 
 neo_conversacion = [
-    {"pregunta": "¡Hola! Soy el Inventario de Personalidad NEO Revisado. ¿Querés conocer tus rasgos más profundos?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
-    {"pregunta": "Mi nombre completo es: Inventario de Personalidad NEO Revisado (NEO PI-R).", "respuestas": ["¿Qué mides?"], "respuesta_usuario": "¿Qué mides?"},
+    {"pregunta": "Mi nombre completo es: Inventario de Personalidad NEO Revisado (NEO PI-R).", "respuestas": ["¿Qué medís?"], "respuesta_usuario": "¿Qué medís?"},
     {"pregunta": "Mido los cinco grandes factores de personalidad y sus facetas.", "respuestas": ["¿Para qué se usa?"], "respuesta_usuario": "¿Para qué se usa?"},
-    {"pregunta": "Se utiliza para:\n- Evaluación de personalidad en adultos\n- Contextos clínicos, laborales, vocacionales y de investigación", "respuestas": ["¿Cuáles son esos cinco factores?"], "respuesta_usuario": "¿Cuáles son esos cinco factores?"},
-    {"pregunta": "1. Neuroticismo (N):\n• Ansiedad\n• Ira-hostilidad\n• Depresión\n• Autoconsciencia\n• Impulsividad\n• Vulnerabilidad", "respuestas": ["¿Y el segundo?"], "respuesta_usuario": "¿Y el segundo?"},
-    {"pregunta": "2. Extraversión (E):\n• Cordialidad\n• Gregarismo\n• Asertividad\n• Nivel de actividad\n• Búsqueda de emociones\n• Emociones positivas", "respuestas": ["¿Y el tercero?"], "respuesta_usuario": "¿Y el tercero?"},
-    {"pregunta": "3. Apertura a la experiencia (O):\n• Fantasía\n• Estética\n• Sentimientos\n• Actividades\n• Ideas\n• Valores", "respuestas": ["¿Y el cuarto?"], "respuesta_usuario": "¿Y el cuarto?"},
-    {"pregunta": "4. Amabilidad (A):\n• Confianza\n• Franqueza\n• Altruismo\n• Conciliación\n• Modestia\n• Sensibilidad", "respuestas": ["¿Y el último factor?"], "respuesta_usuario": "¿Y el último factor?"},
-    {"pregunta": "5. Responsabilidad (C):\n• Competencia\n• Orden\n• Sentido del deber\n• Búsqueda de logros\n• Autodisciplina\n• Deliberación", "respuestas": ["Gracias NEO"], "respuesta_usuario": "Gracias NEO"},
-    {"pregunta": "¡Un placer! Estoy acá para ayudarte a conocerte mejor.", "respuestas": [], "respuesta_usuario": ""}
+    {"pregunta": "Se usa en:\n• Evaluación de personalidad en adultos\n• Contextos clínicos, laborales, vocacionales y de investigación", "respuestas": ["¿Cuáles son esos factores?"], "respuesta_usuario": "¿Cuáles son esos factores?"},
+    {"pregunta": "Neuroticismo (N):\n• Ansiedad\n• Ira-hostilidad\n• Depresión\n• Autoconsciencia\n• Impulsividad\n• Vulnerabilidad", "respuestas": ["¿Y la extraversión?"], "respuesta_usuario": "¿Y la extraversión?"},
+    {"pregunta": "Extraversión (E):\n• Cordialidad\n• Gregarismo\n• Asertividad\n• Nivel de actividad\n• Búsqueda de emociones\n• Emociones positivas", "respuestas": ["¿Y la apertura?"], "respuesta_usuario": "¿Y la apertura?"},
+    {"pregunta": "Apertura a la experiencia (O):\n• Fantasía\n• Estética\n• Sentimientos\n• Actividades\n• Ideas\n• Valores", "respuestas": ["¿Y la amabilidad?"], "respuesta_usuario": "¿Y la amabilidad?"},
+    {"pregunta": "Amabilidad (A):\n• Confianza\n• Franqueza\n• Altruismo\n• Conciliación\n• Modestia\n• Sensibilidad", "respuestas": ["¿Y la responsabilidad?"], "respuesta_usuario": "¿Y la responsabilidad?"},
+    {"pregunta": "Responsabilidad (C):\n• Competencia\n• Orden\n• Sentido del deber\n• Búsqueda de logros\n• Autodisciplina\n• Deliberación", "respuestas": [], "respuesta_usuario": ""}
 ]
+
+
+
+    if paso < len(conversacion):
+        opciones = conversacion[paso]["respuestas"]
+        if opciones:
+            st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
+            for opcion in opciones:
+                if st.button(opcion, key=f"{nombre}_{paso}"):
+                    st.session_state[paso_key] += 1
+                    st.experimental_rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('''
+    <div class="chat-footer">
+        <span class="icon">&#128206;</span>
+        <span class="icon">&#128247;</span>
+        <input type="text" placeholder="Escribí un mensaje" disabled>
+        <span class="icon">&#127908;</span>
+    </div>
+    ''', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
 
 def mostrar_chat(nombre, conversacion, paso_key):
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
@@ -304,7 +318,8 @@ def mostrar_chat(nombre, conversacion, paso_key):
     paso = st.session_state[paso_key]
     for i in range(paso + 1):
         mensaje = conversacion[i]
-        st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"]}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"].replace("
+", "<br>")}</div>', unsafe_allow_html=True)
         if i < paso:
             st.markdown(f'<div class="bubble-user">{mensaje["respuesta_usuario"]}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
@@ -314,10 +329,18 @@ def mostrar_chat(nombre, conversacion, paso_key):
         if opciones:
             st.markdown('<div class="response-buttons">', unsafe_allow_html=True)
             for opcion in opciones:
+                estado_key = f"respuesta_{nombre}_{paso}"
+                if estado_key not in st.session_state:
+                    st.session_state[estado_key] = False
                 if st.button(opcion, key=f"{nombre}_{paso}"):
-                    st.session_state[paso_key] += 1
-                    st.experimental_rerun()
+                    st.session_state[estado_key] = True
             st.markdown('</div>', unsafe_allow_html=True)
+
+            # Verificar después del renderizado
+            if st.session_state.get(f"respuesta_{nombre}_{paso}"):
+                st.session_state[f"respuesta_{nombre}_{paso}"] = False
+                st.session_state[paso_key] += 1
+                st.experimental_rerun()
 
     st.markdown('''
     <div class="chat-footer">
@@ -329,21 +352,24 @@ def mostrar_chat(nombre, conversacion, paso_key):
     ''', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
+
 # Menú
-if st.session_state.pantalla == "menu":
+
     # Encabezado estilo WhatsApp
     st.markdown('<div class="header">', unsafe_allow_html=True)
     st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
     st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
-    st.markdown('''
+    st.markdown("""
     <div class="chip-row">
         <div class="chip">All</div>
         <div class="chip">Unread 16</div>
         <div class="chip">Favorites</div>
         <div class="chip">Groups 9</div>
     </div>
-    ''', unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
+
+if st.session_state.pantalla == "menu":
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
     for i, (nombre, data) in enumerate(pruebas.items()):
         cols = st.columns([0.15, 0.7, 0.15])
