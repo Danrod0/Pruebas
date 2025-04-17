@@ -48,11 +48,21 @@ st.markdown('''
 .chat-time {
     font-size: 12px;
     color: gray;
+    text-align: right;
 }
 .chat-unread {
     color: #25D366;
     font-size: 20px;
     margin-left: 5px;
+}
+.chat-button {
+    background-color: #25D366;
+    color: white;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-top: 5px;
 }
 .chat-box {
     background-color: #ffe6f0;
@@ -139,10 +149,42 @@ if "pantalla" not in st.session_state:
     st.session_state.pantalla = "menu"
 if "paso_wais" not in st.session_state:
     st.session_state.paso_wais = 0
-if "leido_wais" not in st.session_state:
-    st.session_state.leido_wais = False
 
-# Conversación de WAIS
+# Definición de pruebas
+pruebas = {
+    "WAIS": {
+        "avatar": "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
+        "mensaje": "Hola, ¿querés saber más sobre inteligencia?",
+        "hora": "4:21 p.m.",
+        "leido": False
+    },
+    "NEUROPSI": {
+        "avatar": "https://cdn-icons-png.flaticon.com/512/2821/2821028.png",
+        "mensaje": "Hola, soy NEUROPSI. ¿Querés saber sobre funciones cognitivas?",
+        "hora": "3:42 p.m.",
+        "leido": False
+    },
+    "MMPI-2-R": {
+        "avatar": "https://cdn-icons-png.flaticon.com/512/3135/3135789.png",
+        "mensaje": "Hola, soy MMPI-2-R. ¿Te interesa tu perfil psicológico?",
+        "hora": "3:10 p.m.",
+        "leido": False
+    },
+    "PAI": {
+        "avatar": "https://cdn-icons-png.flaticon.com/512/1048/1048949.png",
+        "mensaje": "Hola, soy PAI. ¿Querés conocer tu ajuste psicológico?",
+        "hora": "2:55 p.m.",
+        "leido": False
+    },
+    "NEO-PI-R": {
+        "avatar": "https://cdn-icons-png.flaticon.com/512/219/219969.png",
+        "mensaje": "Hola, soy NEO-PI-R. ¿Querés conocer tus rasgos de personalidad?",
+        "hora": "2:30 p.m.",
+        "leido": False
+    }
+}
+
+# Conversación WAIS
 wais_conversacion = [
     {
         "pregunta": "Hola, soy WAIS. ¿Querés saber más sobre inteligencia?",
@@ -166,45 +208,33 @@ wais_conversacion = [
     }
 ]
 
-# Menú estilo WhatsApp
+# Menú de chats
 if st.session_state.pantalla == "menu":
     st.markdown('<div class="menu-container">', unsafe_allow_html=True)
-    st.markdown('''
-    <div class="chat-preview" onclick="window.location.reload();">
-        <div class="chat-avatar">
-            <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png">
-            <div class="chat-info">
-                <b>WAIS</b><br>
-                <small>Hola, ¿querés saber más sobre inteligencia?</small>
-            </div>
-        </div>
-        <div class="chat-time">
-            4:21 p.m.
-            <span class="chat-unread">●</span>
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
-    if st.button("Iniciar chat con WAIS"):
-        st.session_state.pantalla = "wais"
-        st.session_state.leido_wais = True
+    for nombre, data in pruebas.items():
+        with st.container():
+            cols = st.columns([0.15, 0.7, 0.15])
+            with cols[0]:
+                st.image(data["avatar"], width=45)
+            with cols[1]:
+                st.markdown(f"<b>{nombre}</b><br><small>{data['mensaje']}</small>", unsafe_allow_html=True)
+            with cols[2]:
+                st.markdown(f"<div style='text-align:right;font-size:12px;color:gray;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
+            if st.button(f"Iniciar chat con {nombre}", key=nombre):
+                st.session_state.pantalla = nombre.lower()
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Chat estilo WhatsApp
+# Chat con WAIS
 if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
-
-    st.markdown('''
+    st.markdown(f'''
     <div class="chat-header">
-        <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png">
-        <div>
-            <b>WAIS</b><br><small>en línea</small>
-        </div>
+        <img src="{pruebas['WAIS']['avatar']}">
+        <div><b>WAIS</b><br><small>en línea</small></div>
     </div>
-    <div class="chat-body">
-    ''', unsafe_allow_html=True)
+    <div class="chat-body">''', unsafe_allow_html=True)
 
     paso = st.session_state.paso_wais
-
     for i in range(paso + 1):
         mensaje = wais_conversacion[i]
         st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"]}</div>', unsafe_allow_html=True)
