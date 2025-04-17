@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 st.set_page_config(page_title="Simulador de Pruebas Psicológicas", layout="wide")
@@ -160,36 +161,19 @@ if "pantalla" not in st.session_state:
 if "paso_wais" not in st.session_state:
     st.session_state.paso_wais = 0
 
+# Volver al menú manualmente
+if "volver_al_menu" in st.session_state and st.session_state.volver_al_menu:
+    st.session_state.pantalla = "menu"
+    st.session_state.paso_wais = 0
+    st.session_state.volver_al_menu = False
+    st.experimental_rerun()
+
 # Pruebas
 pruebas = {
     "WAIS": {
         "avatar": "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
         "mensaje": "Hola, ¿querés saber más sobre inteligencia?",
         "hora": "4:21 p.m.",
-        "leido": False
-    },
-    "NEUROPSI": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/2821/2821028.png",
-        "mensaje": "Hola, soy NEUROPSI. ¿Querés saber sobre funciones cognitivas?",
-        "hora": "3:42 p.m.",
-        "leido": False
-    },
-    "MMPI-2-R": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/3135/3135789.png",
-        "mensaje": "Hola, soy MMPI-2-R. ¿Te interesa tu perfil psicológico?",
-        "hora": "3:10 p.m.",
-        "leido": False
-    },
-    "PAI": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/1048/1048949.png",
-        "mensaje": "Hola, soy PAI. ¿Querés conocer tu ajuste psicológico?",
-        "hora": "2:55 p.m.",
-        "leido": False
-    },
-    "NEO-PI-R": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/219/219969.png",
-        "mensaje": "Hola, soy NEO-PI-R. ¿Querés conocer tus rasgos de personalidad?",
-        "hora": "2:30 p.m.",
         "leido": False
     }
 }
@@ -244,16 +228,9 @@ if st.session_state.pantalla == "wais":
             <img src="{pruebas['WAIS']['avatar']}">
             <div><b>WAIS</b><br><small>en línea</small></div>
         </div>
-        <form action="" method="post">
-            <button name="volver" type="submit" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">Volver</button>
-        </form>
+        <button onclick="window.location.reload()" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">Volver</button>
     </div>
     <div class="chat-body">''', unsafe_allow_html=True)
-
-    if st.session_state.get("volver"):
-        st.session_state.pantalla = "menu"
-        st.session_state.paso_wais = 0
-        st.experimental_rerun()
 
     paso = st.session_state.paso_wais
     for i in range(paso + 1):
@@ -272,6 +249,10 @@ if st.session_state.pantalla == "wais":
                 st.session_state.paso_wais += 1
                 st.experimental_rerun()
         st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        if st.button("Volver al menú"):
+            st.session_state.volver_al_menu = True
+            st.experimental_rerun()
 
     st.markdown('''
     <div class="chat-footer">
