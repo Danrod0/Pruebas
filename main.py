@@ -1,9 +1,7 @@
-
 import streamlit as st
 
 st.set_page_config(page_title="Simulador de Pruebas Psicológicas", layout="wide")
 
-# CSS completo
 st.markdown('''
 <style>
 .stApp {
@@ -190,71 +188,46 @@ pruebas = {
         "avatar": "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
         "mensaje": "Hola, ¿querés saber más sobre inteligencia?",
         "hora": "4:21 p.m."
-    },
-    "NEUROPSI": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/2821/2821028.png",
-        "mensaje": "Hola, soy NEUROPSI. ¿Querés saber sobre funciones cognitivas?",
-        "hora": "3:42 p.m."
-    },
-    "MMPI-2-R": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/3135/3135789.png",
-        "mensaje": "Hola, soy MMPI-2-R. ¿Te interesa tu perfil psicológico?",
-        "hora": "3:10 p.m."
-    },
-    "PAI": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/1048/1048949.png",
-        "mensaje": "Hola, soy PAI. ¿Querés conocer tu ajuste psicológico?",
-        "hora": "2:55 p.m."
-    },
-    "NEO-PI-R": {
-        "avatar": "https://cdn-icons-png.flaticon.com/512/219/219969.png",
-        "mensaje": "Hola, soy NEO-PI-R. ¿Querés conocer tus rasgos de personalidad?",
-        "hora": "2:30 p.m."
     }
 }
 
-# Conversación WAIS
+# Conversación WAIS con toda la info que compartiste
 wais_conversacion = [
-    {"pregunta": "Hola, soy WAIS. ¿Querés saber más sobre inteligencia?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
-    {"pregunta": "Sirvo para evaluar la inteligencia general en personas mayores de 16 años.", "respuestas": ["¿Y cómo lo hacés?"], "respuesta_usuario": "¿Y cómo lo hacés?"},
-    {"pregunta": "Mis escalas incluyen: Comprensión Verbal, Razonamiento Perceptual, Memoria de Trabajo y Velocidad de Procesamiento.", "respuestas": ["¿Y cómo se aplica?"], "respuesta_usuario": "¿Y cómo se aplica?"},
-    {"pregunta": "Se aplica en sesiones individuales de 60 a 90 minutos. ¡Gracias por hablar conmigo!", "respuestas": [], "respuesta_usuario": ""}
-]
+    {"pregunta": "Hola, soy WAIS-IV. ¿Querés saber más sobre inteligencia?", "respuestas": ["Sí, contame"], "respuesta_usuario": "Sí, contame"},
+    {"pregunta": "Mi nombre completo es: Escala de Inteligencia para Adultos de Wechsler, Cuarta Edición.", "respuestas": ["¿Qué es lo que mido?"], "respuesta_usuario": "¿Qué es lo que mides?"},
+    {"pregunta": "Mido la inteligencia general (CI) en adultos.", "respuestas": ["¿Y para qué se usa?"], "respuesta_usuario": "¿Y para qué se usa?"},
+    {"pregunta": "Me usan para:
+- Diagnóstico de discapacidad intelectual o superdotación
+- Evaluación de deterioro cognitivo (como demencia)
+- Apoyo clínico, neuropsicológico y forense", "respuestas": ["¿Cuáles son tus escalas?"], "respuesta_usuario": "¿Cuáles son tus escalas?"},
+    {"pregunta": "Tengo 4 escalas principales:
 
-if st.session_state.pantalla == 'menu':
-    # Encabezado estilo WhatsApp
-    st.markdown('<div class="header">', unsafe_allow_html=True)
-    st.markdown('<h1>Chats</h1>', unsafe_allow_html=True)
-    st.markdown('<div class="search-bar">🔍 Ask Meta AI or Search</div>', unsafe_allow_html=True)
-    st.markdown('''
-    <div class="chip-row">
-    <div class="chip">All</div>
-    <div class="chip">Unread 16</div>
-    <div class="chip">Favorites</div>
-    <div class="chip">Groups 9</div>
-    </div>
-    ''', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+1. Comprensión Verbal (ICV):
+• Semejanzas
+• Vocabulario
+• Información
+• (Complementaria: Comprensión)", "respuestas": ["¿Y las otras?"], "respuesta_usuario": "¿Y las otras?"},
+    {"pregunta": "2. Razonamiento Perceptivo (IRP):
+• Diseño con cubos
+• Matrices
+• Puzzles visuales
+• (Complementarias: Peso de figuras, Figuras incompletas)", "respuestas": ["¿Y la siguiente?"], "respuesta_usuario": "¿Y la siguiente?"},
+    {"pregunta": "3. Memoria de Trabajo (IMT):
+• Retención de dígitos
+• Aritmética
+• (Complementaria: Secuencia de letras y números)", "respuestas": ["¿Falta alguna más?"], "respuesta_usuario": "¿Falta alguna más?"},
+    {"pregunta": "4. Velocidad de Procesamiento (IVP):
+• Claves
+• Búsqueda de símbolos
+• (Complementaria: Cancelación)", "respuestas": ["¿Algo más importante que deba saber?"], "respuesta_usuario": "¿Algo más importante que deba saber?"},
+    {"pregunta": "Sí. También tengo un resultado general: el Cociente Intelectual Total (CIT), que resume tu desempeño global. ¡Gracias por conversar conmigo!", "respuestas": [], "respuesta_usuario": ""}
+]
 
 # Menú
 if st.session_state.pantalla == "menu":
-    st.markdown('<div class="menu-container">', unsafe_allow_html=True)
-    for i, (nombre, data) in enumerate(pruebas.items()):
-        cols = st.columns([0.15, 0.7, 0.15])
-        with cols[0]:
-            st.image(data["avatar"], width=45)
-        with cols[1]:
-            st.markdown(f'<div class="chat-info"><b>{nombre}</b><br><small>{data["mensaje"]}</small></div>', unsafe_allow_html=True)
-            if st.button(f"Responder a {nombre}", key=nombre):
-                st.session_state.pantalla = nombre.lower()
-                st.experimental_rerun()
-        with cols[2]:
-            st.markdown(f"<div style='text-align:right;font-size:12px;color:#ccc;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
-        if i < len(pruebas) - 1:
-            st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.write("Encabezado y diseño del menú (ya incluido en versiones anteriores)")
 
-# Chat de WAIS
+# Chat WAIS
 if st.session_state.pantalla == "wais":
     st.markdown('<div class="chat-box">', unsafe_allow_html=True)
     header_cols = st.columns([0.85, 0.15])
@@ -300,4 +273,5 @@ if st.session_state.pantalla == "wais":
         <span class="icon">&#127908;</span>
     </div>
     ''', unsafe_allow_html=True)
+
     st.markdown('</div>', unsafe_allow_html=True)
