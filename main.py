@@ -299,9 +299,9 @@ if st.session_state.pantalla == "menu":
             st.image(data["avatar"], width=45)
         with cols[1]:
             st.markdown(f'<div class="chat-info"><b>{nombre}</b><br><small>{data["mensaje"]}</small></div>', unsafe_allow_html=True)
-            if st.button(f"Responder a {nombre}", key=nombre):
+            if st.button(f"Responder a {nombre}", key=f"chat_{nombre}"):
                 st.session_state.pantalla = nombre.lower()
-                st.experimental_rerun()
+                st.rerun()
         with cols[2]:
             st.markdown(f"<div style='text-align:right;font-size:12px;color:#ccc;'>{data['hora']}<br><span style='color:#25D366;font-size:18px;'>●</span></div>", unsafe_allow_html=True)
         if i < len(pruebas) - 1:
