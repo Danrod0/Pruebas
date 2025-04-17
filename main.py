@@ -318,8 +318,7 @@ def mostrar_chat(nombre, conversacion, paso_key):
     paso = st.session_state[paso_key]
     for i in range(paso + 1):
         mensaje = conversacion[i]
-        st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"].replace("
-", "<br>")}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="bubble-assistant">{mensaje["pregunta"].replace("\\n", "<br>")}</div>', unsafe_allow_html=True)
         if i < paso:
             st.markdown(f'<div class="bubble-user">{mensaje["respuesta_usuario"]}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
